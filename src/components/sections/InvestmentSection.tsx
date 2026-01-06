@@ -68,13 +68,7 @@ export function InvestmentSection() {
         </div>
 
         {/* Divider */}
-        <div className="w-full h-px bg-white/10 mb-8" />
-
-        {/* Empty space row */}
-        <div className="h-16" />
-
-        {/* Divider */}
-        <div className="w-full h-px bg-white/10 mb-0" />
+        <div className="w-full h-px bg-white/10" />
 
         {/* Principles List */}
         <div>
