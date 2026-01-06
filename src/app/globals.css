@@ -1,0 +1,239 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================
+   CREA DEVELOPMENT - Custom Theme Configuration
+   ============================================ */
+
+@theme inline {
+  /* Brand Colors */
+  --color-background: #FAF8F5;
+  --color-background-alt: #F4F1ED;
+  --color-foreground: #2C2824;
+  --color-foreground-light: #6B6560;
+  --color-accent: #8B7355;
+  --color-accent-light: #A08B6E;
+  --color-accent-dark: #6B5A45;
+  --color-investment-bg: #F4F4F4;
+  --color-card: #FFFFFF;
+
+  /* Fonts */
+  --font-heading: var(--font-playfair), serif;
+  --font-body: var(--font-inter), sans-serif;
+
+  /* shadcn mappings */
+  --color-primary: var(--foreground);
+  --color-primary-foreground: var(--background);
+  --color-secondary: var(--background-alt);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--background-alt);
+  --color-muted-foreground: var(--foreground-light);
+  --color-border: #E8E4DF;
+  --color-input: #E8E4DF;
+  --color-ring: var(--accent);
+
+  /* Animation configs */
+  --animate-shiny-text: shiny-text 8s infinite;
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+  --animate-fade-up: fade-up 0.8s ease forwards;
+  --animate-scroll-indicator: scroll-bounce 2s ease-in-out infinite;
+
+  @keyframes shiny-text {
+    0%, 90%, 100% {
+      background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+    30%, 60% {
+      background-position: calc(100% + var(--shiny-width)) 0;
+    }
+  }
+
+  @keyframes shimmer-slide {
+    to {
+      transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+
+  @keyframes spin-around {
+    0% {
+      transform: translateZ(0) rotate(0);
+    }
+    15%, 35% {
+      transform: translateZ(0) rotate(90deg);
+    }
+    65%, 85% {
+      transform: translateZ(0) rotate(270deg);
+    }
+    100% {
+      transform: translateZ(0) rotate(360deg);
+    }
+  }
+
+  @keyframes fade-up {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scroll-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(10px);
+    }
+  }
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: #FAF8F5;
+  --background-alt: #F4F1ED;
+  --foreground: #2C2824;
+  --foreground-light: #6B6560;
+  --accent: #8B7355;
+  --card: #FFFFFF;
+  --card-foreground: #2C2824;
+  --popover: #FFFFFF;
+  --popover-foreground: #2C2824;
+  --primary: #2C2824;
+  --primary-foreground: #FAF8F5;
+  --secondary: #F4F1ED;
+  --secondary-foreground: #2C2824;
+  --muted: #F4F1ED;
+  --muted-foreground: #6B6560;
+  --border: #E8E4DF;
+  --input: #E8E4DF;
+  --ring: #8B7355;
+  --destructive: #DC2626;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+  }
+
+  ::selection {
+    background-color: #8B7355;
+    color: #FFFFFF;
+  }
+}
+
+/* ============================================
+   Component Utilities
+   ============================================ */
+
+@layer components {
+  .container {
+    @apply max-w-[1280px] mx-auto px-6;
+  }
+
+  .subtitle {
+    @apply text-[0.85rem] uppercase tracking-[0.125em] text-[#6B6560] mb-4;
+  }
+
+  /* Primary Button - White border on dark backgrounds */
+  .btn-primary {
+    @apply inline-block px-8 py-4 bg-transparent border border-white text-white
+           uppercase tracking-[2px] text-xs font-semibold
+           transition-all duration-300
+           hover:bg-white hover:text-[#2C2824];
+  }
+
+  /* Secondary Button - Dark border on light backgrounds */
+  .btn-secondary {
+    @apply inline-block px-10 py-[18px] border border-[#2C2824] bg-transparent
+           text-[#2C2824] uppercase tracking-[2px] text-[11px] font-semibold
+           transition-all duration-300
+           hover:bg-[#2C2824] hover:text-white;
+  }
+
+  /* Book Button - Solid dark background */
+  .btn-book {
+    @apply inline-block px-6 py-3 bg-[#2C2824] text-white
+           uppercase tracking-[2px] text-[11px] font-semibold
+           transition-all duration-300
+           hover:bg-[#8B7355];
+  }
+
+  /* Section padding */
+  .section-padding {
+    @apply py-[120px];
+  }
+
+  @media (max-width: 900px) {
+    .section-padding {
+      @apply py-[80px];
+    }
+  }
+}
+
+/* ============================================
+   Font Loading
+   ============================================ */
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtXK-F2qC0s.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtXK-F2qC0s.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuOKfAZ9hjp-Ek-_EeA.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hjp-Ek-_EeA.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fAZ9hjp-Ek-_EeA.woff2') format('woff2');
+}
