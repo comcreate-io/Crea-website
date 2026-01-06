@@ -16,7 +16,7 @@ export function AcquisitionsSection() {
         preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/videos/hero-drone.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767734734/video_gotd4b.mp4" type="video/mp4" />
       </video>
 
       {/* Dark Overlay */}
