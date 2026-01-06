@@ -79,21 +79,44 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         {/* Navigation Arrows */}
         {project.images.length > 1 && (
           <>
+            {/* Mobile arrows - always visible at top */}
+            <div className="absolute top-3 right-3 flex gap-2 sm:hidden z-10">
+              <button
+                onClick={prevImage}
+                className="w-8 h-8 flex items-center justify-center bg-white/90 rounded-full shadow-md"
+                aria-label="Previous image"
+              >
+                <svg className="w-4 h-4 text-[#2C2824]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={nextImage}
+                className="w-8 h-8 flex items-center justify-center bg-white/90 rounded-full shadow-md"
+                aria-label="Next image"
+              >
+                <svg className="w-4 h-4 text-[#2C2824]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Desktop arrows - show on hover */}
             <button
               onClick={prevImage}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+              className="hidden sm:flex absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
               aria-label="Previous image"
             >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#2C2824]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-[#2C2824]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               onClick={nextImage}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+              className="hidden sm:flex absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
               aria-label="Next image"
             >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#2C2824]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-[#2C2824]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
