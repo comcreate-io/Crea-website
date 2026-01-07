@@ -11,6 +11,16 @@ export function HeroSection() {
     const video = videoRef.current;
     if (!video) return;
 
+    // Force play on load (helps with iOS autoplay)
+    const playVideo = async () => {
+      try {
+        await video.play();
+      } catch (e) {
+        // Autoplay was prevented, video will show first frame
+      }
+    };
+    playVideo();
+
     // Smooth loop - restart slightly before end to avoid black frame
     const handleTimeUpdate = () => {
       if (video.duration && video.currentTime > video.duration - 0.5) {
@@ -35,8 +45,9 @@ export function HeroSection() {
           muted
           loop
           playsInline
+          controls={false}
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover [&::-webkit-media-controls]:hidden [&::-webkit-media-controls-enclosure]:hidden [&::-webkit-media-controls-panel]:hidden"
         >
           {/* Mobile-optimized video for smaller screens */}
           <source
