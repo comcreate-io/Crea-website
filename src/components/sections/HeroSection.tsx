@@ -14,7 +14,6 @@ export function HeroSection() {
       <div className="absolute inset-0 -z-10">
         <BackgroundVideo
           src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767825571/hero-drone_ugfa4w.mp4"
-          mobileSrc="https://res.cloudinary.com/dku1gnuat/video/upload/v1767825570/hero-drone-mobile_mv44q4.mp4"
         />
         {/* Gradient overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
