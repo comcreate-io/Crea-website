@@ -3,24 +3,13 @@
 import { BlurFade } from "@/components/ui/blur-fade";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { NumberTicker } from "@/components/ui/number-ticker";
+import { BackgroundVideo } from "@/components/ui/background-video";
 
 export function AcquisitionsSection() {
   return (
     <section id="acquisitions" className="py-24 md:py-32 text-white relative overflow-hidden">
       {/* Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        controls={false}
-        preload="auto"
-        webkit-playsinline="true"
-        x-webkit-airplay="deny"
-        disablePictureInPicture
-        className="absolute inset-0 w-full h-full object-cover [&::-webkit-media-controls]:hidden [&::-webkit-media-controls-enclosure]:hidden [&::-webkit-media-controls-panel]:hidden"
-        src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767734734/video_gotd4b.mp4"
-      />
+      <BackgroundVideo src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767734734/video_gotd4b.mp4" />
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/70" />
