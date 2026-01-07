@@ -40,12 +40,12 @@ export function HeroSection() {
         >
           {/* Mobile-optimized video for smaller screens */}
           <source
-            src="/videos/hero-drone-mobile.mp4"
+            src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767825570/hero-drone-mobile_mv44q4.mp4"
             type="video/mp4"
             media="(max-width: 768px)"
           />
           {/* Full quality for desktop */}
-          <source src="/videos/hero-drone.mp4" type="video/mp4" />
+          <source src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767825571/hero-drone_ugfa4w.mp4" type="video/mp4" />
         </video>
         {/* Gradient overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />

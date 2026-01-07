@@ -17,7 +17,7 @@ export function DevelopmentsSection() {
         preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/videos/property-tour.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767825571/property-tour_qdsczq.mp4" type="video/mp4" />
       </video>
 
       {/* Dark Overlay */}
