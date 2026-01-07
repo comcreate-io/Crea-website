@@ -15,7 +15,6 @@ export function AcquisitionsSection() {
         playsInline
         controls={false}
         preload="auto"
-        // @ts-expect-error - webkit-playsinline is needed for older iOS
         webkit-playsinline="true"
         x-webkit-airplay="deny"
         disablePictureInPicture
