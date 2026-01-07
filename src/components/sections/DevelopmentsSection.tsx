@@ -14,11 +14,15 @@ export function DevelopmentsSection() {
         muted
         loop
         playsInline
+        controls={false}
         preload="auto"
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767825571/property-tour_qdsczq.mp4" type="video/mp4" />
-      </video>
+        // @ts-expect-error - webkit-playsinline is needed for older iOS
+        webkit-playsinline="true"
+        x-webkit-airplay="deny"
+        disablePictureInPicture
+        className="absolute inset-0 w-full h-full object-cover [&::-webkit-media-controls]:hidden [&::-webkit-media-controls-enclosure]:hidden [&::-webkit-media-controls-panel]:hidden"
+        src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767825571/property-tour_qdsczq.mp4"
+      />
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/70" />
