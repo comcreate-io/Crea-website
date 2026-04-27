@@ -17,7 +17,6 @@ const contacts = [
     name: "Alex Yoo",
     title: "Director of Acquisitions & Investor Relations",
     phone: "858-343-8500",
-    phone2: "602-299-3679",
     email: "Alex@dcstreamlined.com",
   },
 ];
@@ -111,17 +110,6 @@ export function ContactSection() {
                         </div>
                         <span className="text-sm sm:text-base">{contact.phone}</span>
                       </a>
-                      {contact.phone2 && (
-                        <a
-                          href={`tel:${contact.phone2.replace(/-/g, "")}`}
-                          className="flex items-center justify-center md:justify-start gap-2 sm:gap-3 text-[#6B6560] hover:text-[#8B7355] transition-colors active:scale-[0.98]"
-                        >
-                          <div className="w-8 h-8 rounded-full bg-[#F4F1ED] flex items-center justify-center group-hover:bg-[#8B7355]/10 transition-colors">
-                            <Phone className="w-4 h-4" />
-                          </div>
-                          <span className="text-sm sm:text-base">{contact.phone2}</span>
-                        </a>
-                      )}
                       <a
                         href={`mailto:${contact.email}`}
                         className="flex items-center justify-center md:justify-start gap-2 sm:gap-3 text-[#6B6560] hover:text-[#8B7355] transition-colors active:scale-[0.98]"
@@ -136,6 +124,22 @@ export function ContactSection() {
                 </BlurFade>
               ))}
             </div>
+
+            <BlurFade delay={0.6} inView>
+              <div className="mt-8 sm:mt-10">
+                <a
+                  href="https://www.instagram.com/creadevelopment?igsh=NTc4MTIwNjQ2YQ=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center md:justify-start gap-2 sm:gap-3 text-[#6B6560] hover:text-[#8B7355] transition-colors active:scale-[0.98]"
+                >
+                  <div className="w-8 h-8 rounded-full bg-[#F4F1ED] flex items-center justify-center hover:bg-[#8B7355]/10 transition-colors">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
+                  </div>
+                  <span className="text-sm sm:text-base">@creadevelopment</span>
+                </a>
+              </div>
+            </BlurFade>
           </div>
 
           {/* Right Column - Contact Form */}
