@@ -11,13 +11,13 @@ const contacts = [
     name: "Diego Colwell",
     title: "Founder & President",
     phone: "480-341-1881",
-    email: "Diego@dcstreamlined.com",
+    email: "Diego@crea-development.com",
   },
   {
     name: "Alex Yoo",
     title: "Director of Acquisitions & Investor Relations",
     phone: "858-343-8500",
-    email: "Alex@dcstreamlined.com",
+    email: "Alex@crea-development.com",
   },
 ];
 
