@@ -1,16 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { TextAnimate } from "@/components/ui/text-animate";
+import { ProjectLightbox, type LightboxMedia } from "@/components/ui/project-lightbox";
 
-const projects = [
+type MediaItem = LightboxMedia;
+
+type Project = {
+  name: string;
+  location: string | null;
+  status: string;
+  media: MediaItem[];
+  description: string;
+};
+
+const img = (src: string): MediaItem => ({ type: "image", src });
+
+const projects: Project[] = [
+  {
+    name: "Pershing House",
+    location: null,
+    status: "In Development",
+    media: [
+      "/PershingHouse/ext1.jpg",
+      "/PershingHouse/kitchen.jpg",
+      "/PershingHouse/fireplace.jpg",
+      "/PershingHouse/mbath1.jpg",
+      "/PershingHouse/mbath2.jpg",
+    ].map(img),
+    description: "Transitional farmhouse with vaulted interiors and spa-inspired baths",
+  },
+  {
+    name: "Decola",
+    location: null,
+    status: "In Development",
+    media: [
+      "/Decola/ext1.jpg",
+      "/Decola/pool.jpg",
+      "/Decola/kitchen.jpg",
+      "/Decola/fireplace.jpg",
+      "/Decola/mbath1.jpg",
+      "/Decola/mbath2.jpg",
+    ].map(img),
+    description: "Stone-clad farmhouse with resort-style pool and warm modern interiors",
+  },
   {
     name: "Cactus Corridor",
     location: null,
     status: "Multiple in Development",
-    images: [
+    media: [
       "/MultipleInDevelopment/0.png",
       "/MultipleInDevelopment/1.png",
       "/MultipleInDevelopment/2.png",
@@ -19,14 +59,17 @@ const projects = [
       "/MultipleInDevelopment/5.png",
       "/MultipleInDevelopment/6.png",
       "/MultipleInDevelopment/7.png",
-    ],
+    ].map(img),
     description: "Modern farmhouse with refined finishes",
   },
   {
     name: "Marion Estates",
     location: null,
     status: "In Development",
-    images: [
+    media: [
+      img("/MarrionEstates/marion-estates-hero.jpg"),
+      { type: "video", src: "/MarrionEstates/marion-estates.mp4", poster: "/MarrionEstates/marion-estates-poster.jpg" },
+      ...[
       "/MarrionEstates/IMG_2306-2.webp",
       "/MarrionEstates/IMG_2316-2-1.webp",
       "/MarrionEstates/IMG_2372-2.webp",
@@ -35,6 +78,7 @@ const projects = [
       "/MarrionEstates/IMG_2399-2.webp",
       "/MarrionEstates/IMG_2475-2.webp",
       "/MarrionEstates/new.png",
+      ].map(img),
     ],
     description: "Contemporary desert modern residence",
   },
@@ -42,42 +86,106 @@ const projects = [
     name: "Arcadia",
     location: null,
     status: "In Development",
-    images: [
+    media: [
       "/Arcadia/Pierson front elevationJPG (1).JPG",
       "/Arcadia/Pierson rear elevation (1).JPG",
-    ],
+    ].map(img),
     description: "Modern farmhouse with transitional Arcadia influence",
   },
 ];
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
 
   const nextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+    setCurrentImageIndex((prev) => (prev + 1) % project.media.length);
   };
 
   const prevImage = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
+    setCurrentImageIndex((prev) => (prev - 1 + project.media.length) % project.media.length);
   };
 
   return (
     <div className="group relative overflow-hidden bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 active:scale-[0.98]">
+      <ProjectLightbox
+        open={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        media={project.media}
+        initialIndex={currentImageIndex}
+        title={project.name}
+        description={project.description}
+      />
       {/* Image Carousel */}
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <Image
-          src={project.images[currentImageIndex]}
-          alt={`${project.name} - Image ${currentImageIndex + 1}`}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-          loading={index === 0 ? "eager" : "lazy"}
-        />
+      <div
+        className="relative aspect-[4/3] overflow-hidden cursor-pointer select-none"
+        role="button"
+        tabIndex={0}
+        aria-label={`Open ${project.name} gallery`}
+        onClick={() => {
+          if (swiped.current) {
+            swiped.current = false;
+            return;
+          }
+          setLightboxOpen(true);
+        }}
+        style={{ touchAction: "pan-y" }}
+        onPointerDown={(e) => {
+          swipeStart.current = { x: e.clientX, y: e.clientY };
+        }}
+        onPointerUp={(e) => {
+          const start = swipeStart.current;
+          swipeStart.current = null;
+          if (!start || project.media.length < 2) return;
+          const dx = e.clientX - start.x;
+          const dy = e.clientY - start.y;
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+            swiped.current = true;
+            setCurrentImageIndex((prev) =>
+              dx < 0
+                ? (prev + 1) % project.media.length
+                : (prev - 1 + project.media.length) % project.media.length
+            );
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setLightboxOpen(true);
+          }
+        }}
+      >
+        {project.media[currentImageIndex].type === "video" ? (
+          <video
+            key={project.media[currentImageIndex].src}
+            src={project.media[currentImageIndex].src}
+            poster={project.media[currentImageIndex].poster}
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label={`${project.name} video`}
+          />
+        ) : (
+          <Image
+            src={project.media[currentImageIndex].src}
+            alt={`${project.name} - Image ${currentImageIndex + 1}`}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            loading={index === 0 ? "eager" : "lazy"}
+            draggable={false}
+          />
+        )}
 
         {/* Navigation Arrows */}
-        {project.images.length > 1 && (
+        {project.media.length > 1 && (
           <>
             {/* Mobile arrows - always visible at top */}
             <div className="absolute top-3 right-3 flex gap-2 sm:hidden z-10">
@@ -123,7 +231,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
             {/* Dot Indicators */}
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-              {project.images.map((_, imgIndex) => (
+              {project.media.map((_, imgIndex) => (
                 <button
                   key={imgIndex}
                   onClick={(e) => {
@@ -139,6 +247,14 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             </div>
           </>
         )}
+
+        {/* Expand hint */}
+        <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-black/50 text-white text-[9px] sm:text-[10px] uppercase tracking-[1.5px] opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity pointer-events-none">
+          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+          </svg>
+          View
+        </div>
 
         {/* Status Badge */}
         {project.status && (
