@@ -26,7 +26,7 @@ export function DevelopmentsSection() {
 
           <BlurFade delay={0.2} inView>
             <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl text-white leading-[1.1] mb-6">
-              <TextAnimate animation="slideUp" by="word">
+              <TextAnimate as="span" animation="slideUp" by="word">
                 Curated
               </TextAnimate>{" "}
               <span className="italic text-[#C9A96E]">Developments</span>

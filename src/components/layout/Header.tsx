@@ -2,25 +2,33 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#acquisitions", label: "Acquisitions" },
-  { href: "#projects", label: "Projects" },
-  { href: "#investment", label: "Investment" },
-  { href: "#team", label: "Team" },
+  { href: "/#about", label: "About" },
+  { href: "/#acquisitions", label: "Acquisitions" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#investment", label: "Investment" },
+  { href: "/#team", label: "Team" },
 ];
 
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  // The homepage has a full-bleed hero, so it starts transparent and turns
+  // solid on scroll. Every other route has a light background from the top,
+  // so the solid variant renders from the start.
+  const isHome = pathname === "/";
+  const [hasScrolled, setHasScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isScrolled = !isHome || hasScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setHasScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -59,7 +67,7 @@ export function Header() {
               </Link>
             ))}
             <Link
-              href="#contact"
+              href="/#contact"
               className={`px-6 py-3 text-[11px] uppercase tracking-[2px] font-medium transition-all duration-300 ${
                 isScrolled
                   ? "bg-[#2C2824] text-white hover:bg-[#8B7355]"
@@ -125,7 +133,7 @@ export function Header() {
             </Link>
           ))}
           <Link
-            href="#contact"
+            href="/#contact"
             onClick={() => setIsMobileMenuOpen(false)}
             className="px-8 py-4 bg-[#2C2824] text-white text-[11px] uppercase tracking-[2px] font-medium hover:bg-[#8B7355] transition-colors mt-4"
           >

@@ -19,7 +19,7 @@ export function AboutSection() {
 
             <BlurFade delay={0.2} inView>
               <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl mb-8 text-[#2C2824] leading-[1.15]">
-                <TextAnimate animation="slideUp" by="word">
+                <TextAnimate as="span" animation="slideUp" by="word">
                   Thoughtful
                 </TextAnimate>{" "}
                 <span className="italic text-[#8B7355]">Creation</span>

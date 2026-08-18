@@ -69,7 +69,7 @@ export function TeamSection() {
 
           <BlurFade delay={0.2} inView>
             <h2 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-4 sm:mb-6">
-              <TextAnimate animation="blurInUp" by="word">
+              <TextAnimate as="span" animation="blurInUp" by="word">
                 The
               </TextAnimate>{" "}
               <span className="text-[#C9A96E]">Team</span>

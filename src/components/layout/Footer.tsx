@@ -2,12 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#acquisitions", label: "Acquisitions" },
-  { href: "#projects", label: "Projects" },
-  { href: "#investment", label: "Investment" },
-  { href: "#team", label: "Team" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#acquisitions", label: "Acquisitions" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#investment", label: "Investment" },
+  { href: "/#team", label: "Team" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 const markets = [
@@ -47,7 +47,7 @@ export function Footer() {
               href="/terms"
               className="text-sm text-[#6B6560] hover:text-[#8B7355] transition-colors"
             >
-              Terms of Service
+              Terms of Use
             </Link>
           </div>
         </div>

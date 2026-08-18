@@ -27,19 +27,16 @@ export function HeroSection() {
           </span>
         </BlurFade>
 
-        <BlurFade delay={0.4} inView>
-          <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal mb-4 leading-[1.1]">
-            <TextAnimate animation="blurInUp" by="word">
+        <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal mb-8 leading-[1.1]">
+          <BlurFade as="span" delay={0.4} inView className="block mb-4">
+            <TextAnimate as="span" animation="blurInUp" by="word" className="block">
               Luxury Residential
             </TextAnimate>
-          </h1>
-        </BlurFade>
-
-        <BlurFade delay={0.5} inView>
-          <h1 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal mb-8 leading-[1.1]">
+          </BlurFade>
+          <BlurFade as="span" delay={0.5} inView className="block">
             <span className="text-white italic">Development</span>
-          </h1>
-        </BlurFade>
+          </BlurFade>
+        </h1>
 
         <BlurFade delay={0.7} inView>
           <p className="text-base sm:text-lg md:text-xl font-light text-white/85 mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0">

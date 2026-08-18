@@ -15,6 +15,8 @@ type MarginType = UseInViewOptions["margin"]
 interface BlurFadeProps extends MotionProps {
   children: React.ReactNode
   className?: string
+  /** Element to render. Use "span" inside headings so no div sits in phrasing content. */
+  as?: "div" | "span"
   variant?: {
     hidden: { y: number }
     visible: { y: number }
@@ -31,6 +33,7 @@ interface BlurFadeProps extends MotionProps {
 export function BlurFade({
   children,
   className,
+  as = "div",
   variant,
   duration = 0.4,
   delay = 0,
@@ -58,9 +61,10 @@ export function BlurFade({
     },
   }
   const combinedVariants = variant || defaultVariants
+  const MotionTag = as === "span" ? motion.span : motion.div
   return (
     <AnimatePresence>
-      <motion.div
+      <MotionTag
         ref={ref}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
@@ -75,7 +79,7 @@ export function BlurFade({
         {...props}
       >
         {children}
-      </motion.div>
+      </MotionTag>
     </AnimatePresence>
   )
 }

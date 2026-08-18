@@ -309,7 +309,7 @@ const TextAnimateBase = ({
   variants,
   className,
   segmentClassName,
-  as: Component = "p",
+  as: Component = "span",
   startOnView = true,
   once = false,
   by = "word",
@@ -389,9 +389,8 @@ const TextAnimateBase = ({
         whileInView={startOnView ? "show" : undefined}
         animate={startOnView ? undefined : "show"}
         exit="exit"
-        className={cn("whitespace-pre-wrap", className)}
+        className={cn("whitespace-pre-wrap inline", className)}
         viewport={{ once }}
-        aria-label={accessible ? children : undefined}
         {...props}
       >
         {accessible && <span className="sr-only">{children}</span>}

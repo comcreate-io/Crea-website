@@ -298,7 +298,7 @@ export function ProjectsSection() {
 
           <BlurFade delay={0.2} inView>
             <h2 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 sm:mb-6 text-[#2C2824]">
-              <TextAnimate animation="blurInUp" by="word">
+              <TextAnimate as="span" animation="blurInUp" by="word">
                 Ongoing Projects
               </TextAnimate>
             </h2>

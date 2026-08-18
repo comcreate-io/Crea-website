@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
@@ -10,6 +11,18 @@ import { InvestmentSection } from "@/components/sections/InvestmentSection";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { MapSection } from "@/components/sections/MapSection";
+import { pageMeta } from "@/lib/meta";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@/lib/site";
+
+export const metadata: Metadata = {
+  ...pageMeta({
+    path: "/",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+  }),
+  // The homepage carries the full default title, not the "%s | Crea" template.
+  title: { absolute: DEFAULT_TITLE },
+};
 
 export default function Home() {
   return (
