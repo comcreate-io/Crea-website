@@ -51,7 +51,7 @@ const teamMembers = [
     company: "Luxury Residential Design",
     role: "Architect | Marion Estates",
     description:
-      "A leading luxury residential design firm known for modern homes with exceptional indoor-outdoor integration. Multiple Gold Award winners at the 2025 Iconic Design Awards along with other major regional and national honors. Deep experience across Scottsdale, Phoenix, and Paradise Valley—they understand what high-end buyers want.",
+      "A leading luxury residential design firm known for modern homes with exceptional indoor-outdoor integration. Multiple Gold Award winners at the 2025 Iconic Design Awards along with other major regional and national honors. Deep experience across Scottsdale, Phoenix, and Paradise Valley; they understand what high-end buyers want.",
   },
 ];
 
@@ -79,7 +79,7 @@ export function TeamSection() {
           <BlurFade delay={0.3} inView>
             <p className="text-base sm:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed px-2">
               Every CREA project is backed by Arizona&apos;s most experienced
-              professionals—decades of proven success across lending, construction,
+              professionals: decades of proven success across lending, construction,
               design, and sales.
             </p>
           </BlurFade>

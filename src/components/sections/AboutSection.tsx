@@ -56,7 +56,7 @@ export function AboutSection() {
             <BlurFade delay={0.6} inView>
               <p className="text-[#6B6560] mb-6 leading-relaxed">
                 Crea Development takes a disciplined, data-driven approach to
-                every project—from land acquisition and underwriting to design,
+                every project, from land acquisition and underwriting to design,
                 construction, and exit strategy.
               </p>
             </BlurFade>

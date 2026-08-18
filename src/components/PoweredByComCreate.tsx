@@ -8,7 +8,7 @@
  * - Zero dependencies (plain React, no Tailwind / CSS modules / design tokens required).
  * - Conflict-free: styles are injected once under a unique class prefix.
  * - Pulls the ComCreate wordmark from the CDN (comcreate.io), so branding stays
- *   centrally managed — update the logo once and every site reflects it.
+ *   centrally managed: update the logo once and every site reflects it.
  * - "Powered by" label uses `currentColor`, so it inherits the host footer's color.
  *   The wordmark auto-swaps between its dark/light variants for the background.
  *
@@ -26,9 +26,9 @@
 import { useEffect } from "react";
 import type { CSSProperties } from "react";
 
-const PREFIX = "pbcc"; // powered-by-comcreate — unique class prefix to avoid collisions
+const PREFIX = "pbcc"; // powered-by-comcreate, unique class prefix to avoid collisions
 
-/** CDN base — the ComCreate site root serves the brand assets (edge-cached). */
+/** CDN base: the ComCreate site root serves the brand assets (edge-cached). */
 const DEFAULT_BASE = "https://comcreate.io";
 
 export interface PoweredByComCreateProps {
@@ -36,9 +36,9 @@ export interface PoweredByComCreateProps {
   href?: string;
   /**
    * Which wordmark to show, by background:
-   *   "auto"  — follow the visitor's prefers-color-scheme (default)
-   *   "light" — dark wordmark, for light footers
-   *   "dark"  — white wordmark, for dark footers
+   *   "auto"  : follow the visitor's prefers-color-scheme (default)
+   *   "light" : dark wordmark, for light footers
+   *   "dark"  : white wordmark, for dark footers
    */
   theme?: "auto" | "light" | "dark";
   /** Horizontal alignment of the badge within its container. */
@@ -129,7 +129,7 @@ function Wordmark({
   if (theme === "light") return <img src={light} {...imgProps} />;
   if (theme === "dark") return <img src={dark} {...imgProps} />;
 
-  // auto — let the browser pick based on the visitor's color scheme
+  // auto: let the browser pick based on the visitor's color scheme
   return (
     <picture>
       <source srcSet={dark} media="(prefers-color-scheme: dark)" />

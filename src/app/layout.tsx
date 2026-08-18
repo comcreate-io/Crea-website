@@ -70,7 +70,6 @@ export const metadata: Metadata = {
     description: DEFAULT_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE],
   },
-  icons: { icon: "/favicon.ico" },
   formatDetection: { telephone: true, email: true, address: false },
 };
 

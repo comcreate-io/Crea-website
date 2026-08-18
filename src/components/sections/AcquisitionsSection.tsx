@@ -105,7 +105,7 @@ export function AcquisitionsSection() {
               </h3>
               <p className="text-white/60 leading-relaxed">
                 We carefully evaluate every opportunity through our proprietary systems,
-                selecting only the developments that meet our strict criteria—ensuring
+                selecting only the developments that meet our strict criteria, ensuring
                 the best outcomes for our investors.
               </p>
             </div>
