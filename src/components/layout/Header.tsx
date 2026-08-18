@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { track } from "@/lib/analytics";
 
 const navLinks = [
   { href: "/#about", label: "About" },
@@ -68,6 +69,7 @@ export function Header() {
             ))}
             <Link
               href="/#contact"
+              onClick={() => track("request_access_click", { location: "header" })}
               className={`px-6 py-3 text-[11px] uppercase tracking-[2px] font-medium transition-all duration-300 ${
                 isScrolled
                   ? "bg-[#2C2824] text-white hover:bg-[#8B7355]"
@@ -134,7 +136,10 @@ export function Header() {
           ))}
           <Link
             href="/#contact"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              track("request_access_click", { location: "header_mobile" });
+            }}
             className="px-8 py-4 bg-[#2C2824] text-white text-[11px] uppercase tracking-[2px] font-medium hover:bg-[#8B7355] transition-colors mt-4"
           >
             Contact

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { track } from "@/lib/analytics";
 
 const principles = [
   {
@@ -117,6 +118,7 @@ export function InvestmentSection() {
           <div className="flex justify-center mt-16">
             <Link
               href="#contact"
+              onClick={() => track("request_access_click", { location: "investment_section" })}
               className="relative inline-block px-12 py-4 border border-white/20 hover:border-[#C9A96E]/50 transition-colors duration-300 overflow-hidden"
             >
               <span className="text-[11px] uppercase tracking-[3px] font-medium text-white">

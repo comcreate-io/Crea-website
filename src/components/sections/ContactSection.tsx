@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { Phone, Mail } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 const contacts = [
   {
@@ -24,6 +25,8 @@ const contacts = [
 export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  // Spam protection: time on form. Set when the section mounts.
+  const startedAt = useRef<number>(Date.now());
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,6 +41,10 @@ export function ContactSection() {
       phone: formData.get("phone"),
       interest: formData.get("interest"),
       message: formData.get("message"),
+      // Honeypot: humans never see or fill this field.
+      company: formData.get("company"),
+      elapsedMs: Date.now() - startedAt.current,
+      page: typeof window !== "undefined" ? window.location.pathname : "/",
     };
 
     try {
@@ -50,13 +57,24 @@ export function ContactSection() {
       });
 
       if (response.ok) {
+        const json: { spam?: boolean } = await response.json().catch(() => ({}));
         setSubmitStatus("success");
+        if (!json.spam) {
+          track("contact_form_submit", {
+            form_id: "contact",
+            interest: String(data.interest ?? ""),
+            has_phone: Boolean(data.phone),
+          });
+        }
         form.reset();
+        startedAt.current = Date.now();
       } else {
         setSubmitStatus("error");
+        track("contact_form_error", { form_id: "contact", status: response.status });
       }
     } catch {
       setSubmitStatus("error");
+      track("contact_form_error", { form_id: "contact", status: 0 });
     } finally {
       setIsSubmitting(false);
     }
@@ -103,6 +121,7 @@ export function ContactSection() {
                     <div className="flex flex-col gap-2">
                       <a
                         href={`tel:${contact.phone.replace(/-/g, "")}`}
+                        onClick={() => track("phone_click", { person: contact.name, location: "contact_section" })}
                         className="flex items-center justify-center md:justify-start gap-2 sm:gap-3 text-[#6B6560] hover:text-[#8B7355] transition-colors active:scale-[0.98]"
                       >
                         <div className="w-8 h-8 rounded-full bg-[#F4F1ED] flex items-center justify-center group-hover:bg-[#8B7355]/10 transition-colors">
@@ -112,6 +131,7 @@ export function ContactSection() {
                       </a>
                       <a
                         href={`mailto:${contact.email}`}
+                        onClick={() => track("email_click", { person: contact.name, location: "contact_section" })}
                         className="flex items-center justify-center md:justify-start gap-2 sm:gap-3 text-[#6B6560] hover:text-[#8B7355] transition-colors active:scale-[0.98]"
                       >
                         <div className="w-8 h-8 rounded-full bg-[#F4F1ED] flex items-center justify-center group-hover:bg-[#8B7355]/10 transition-colors">
@@ -131,6 +151,7 @@ export function ContactSection() {
                   href="https://www.instagram.com/creadevelopment?igsh=NTc4MTIwNjQ2YQ=="
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => track("instagram_click", { location: "contact_section" })}
                   className="inline-flex items-center justify-center md:justify-start gap-2 sm:gap-3 text-[#6B6560] hover:text-[#8B7355] transition-colors active:scale-[0.98]"
                 >
                   <div className="w-8 h-8 rounded-full bg-[#F4F1ED] flex items-center justify-center hover:bg-[#8B7355]/10 transition-colors">
@@ -153,7 +174,7 @@ export function ContactSection() {
                 Send a Message
               </h3>
 
-              <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
+              <form className="space-y-4 sm:space-y-6 relative" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[9px] sm:text-[10px] uppercase tracking-[1.5px] sm:tracking-[2px] text-[#6B6560] mb-1.5 sm:mb-2">
@@ -220,6 +241,12 @@ export function ContactSection() {
                     className="w-full p-3 sm:p-4 bg-[#F8F6F3] border border-[#E8E4DF] text-[#2C2824] placeholder:text-[#6B6560]/50 focus:outline-none focus:ring-2 focus:ring-[#8B7355]/30 focus:border-[#8B7355] transition-all resize-none rounded-lg text-base"
                     required
                   />
+                </div>
+
+                {/* Honeypot. Hidden from humans and screen readers; bots fill it. */}
+                <div aria-hidden="true" className="absolute -left-[9999px] top-auto w-px h-px overflow-hidden">
+                  <label htmlFor="company">Company</label>
+                  <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
                 </div>
 
                 <ShimmerButton

@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { SectionDepth } from "@/components/analytics/SectionDepth";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import {
@@ -89,6 +93,10 @@ export default function RootLayout({
       <body className={`${playfair.variable} ${inter.variable} antialiased`}>
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <GoogleAnalytics />
+        <SectionDepth />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
