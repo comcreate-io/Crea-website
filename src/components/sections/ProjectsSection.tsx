@@ -67,18 +67,10 @@ const projects: Project[] = [
     location: null,
     status: "In Development",
     media: [
-      img("/MarrionEstates/marion-estates-hero.jpg"),
+      // Marion Estates: one screenshot from the 2026-0610 Marion Way walkthrough
+      // plus the video itself. Nothing else without client sign-off.
+      img("/MarrionEstates/marion-estates-still.webp"),
       { type: "video", src: "/MarrionEstates/marion-estates.mp4", poster: "/MarrionEstates/marion-estates-poster.jpg" },
-      ...[
-      "/MarrionEstates/IMG_2306-2.webp",
-      "/MarrionEstates/IMG_2316-2-1.webp",
-      "/MarrionEstates/IMG_2372-2.webp",
-      "/MarrionEstates/IMG_2375-2.webp",
-      "/MarrionEstates/IMG_2384-2.webp",
-      "/MarrionEstates/IMG_2399-2.webp",
-      "/MarrionEstates/IMG_2475-2.webp",
-      "/MarrionEstates/new.png",
-      ].map(img),
     ],
     description: "Contemporary desert modern residence",
   },
