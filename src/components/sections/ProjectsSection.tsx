@@ -20,7 +20,19 @@ const img = (src: string): MediaItem => ({ type: "image", src });
 
 const projects: Project[] = [
   {
-    name: "Pershing House",
+    name: "5515 N Marion Way",
+    location: null,
+    status: "In Development",
+    media: [
+      // Marion Estates: one screenshot from the 2026-0610 Marion Way walkthrough
+      // plus the video itself. Nothing else without client sign-off.
+      img("/MarrionEstates/marion-estates-still.webp"),
+      { type: "video", src: "/MarrionEstates/marion-estates.mp4", poster: "/MarrionEstates/marion-estates-poster.jpg" },
+    ],
+    description: "Contemporary desert modern residence",
+  },
+  {
+    name: "6215 E Pershing Ave",
     location: null,
     status: "In Development",
     media: [
@@ -33,7 +45,7 @@ const projects: Project[] = [
     description: "Transitional farmhouse with vaulted interiors and spa-inspired baths",
   },
   {
-    name: "Decola",
+    name: "6149 E Delcoa Ave",
     location: null,
     status: "In Development",
     media: [
@@ -61,18 +73,6 @@ const projects: Project[] = [
       "/MultipleInDevelopment/7.png",
     ].map(img),
     description: "Modern farmhouse with refined finishes",
-  },
-  {
-    name: "Marion Estates",
-    location: null,
-    status: "In Development",
-    media: [
-      // Marion Estates: one screenshot from the 2026-0610 Marion Way walkthrough
-      // plus the video itself. Nothing else without client sign-off.
-      img("/MarrionEstates/marion-estates-still.webp"),
-      { type: "video", src: "/MarrionEstates/marion-estates.mp4", poster: "/MarrionEstates/marion-estates-poster.jpg" },
-    ],
-    description: "Contemporary desert modern residence",
   },
   {
     name: "Arcadia",
