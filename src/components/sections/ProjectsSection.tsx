@@ -20,7 +20,7 @@ const img = (src: string): MediaItem => ({ type: "image", src });
 
 const projects: Project[] = [
   {
-    name: "5515 N Marion Way",
+    name: "Marion Estates",
     location: null,
     status: "In Development",
     media: [
@@ -32,7 +32,7 @@ const projects: Project[] = [
     description: "Contemporary desert modern residence",
   },
   {
-    name: "6215 E Pershing Ave",
+    name: "Pershing House",
     location: null,
     status: "In Development",
     media: [
@@ -45,7 +45,7 @@ const projects: Project[] = [
     description: "Transitional farmhouse with vaulted interiors and spa-inspired baths",
   },
   {
-    name: "6149 E Delcoa Ave",
+    name: "Decola",
     location: null,
     status: "In Development",
     media: [
@@ -162,6 +162,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             loop
             playsInline
             preload="metadata"
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
             aria-label={`${project.name} video`}
           />
         ) : (
