@@ -10,7 +10,10 @@ export function DevelopmentsSection() {
   return (
     <section id="developments" className="py-24 md:py-32 text-white relative overflow-hidden">
       {/* Background Video */}
-      <BackgroundVideo src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767825571/property-tour_qdsczq.mp4" />
+      <BackgroundVideo
+        src="https://res.cloudinary.com/dku1gnuat/video/upload/v1767825571/property-tour_qdsczq.mp4"
+        poster="https://res.cloudinary.com/dku1gnuat/video/upload/so_0,q_auto,f_jpg/property-tour_qdsczq.jpg"
+      />
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/70" />

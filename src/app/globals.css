@@ -144,12 +144,6 @@
     color: #FFFFFF;
   }
 
-  /* Hide native / iOS Safari play-pause chrome. Videos autoplay muted. */
-  video::-webkit-media-controls,
-  video::-webkit-media-controls-start-playback-button {
-    display: none !important;
-    -webkit-appearance: none;
-  }
 }
 
 /* ============================================
@@ -243,4 +237,25 @@
   font-weight: 500;
   font-display: swap;
   src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fAZ9hjp-Ek-_EeA.woff2') format('woff2');
+}
+
+/* Unlayered so these beat UA / iOS Safari media-control styles. */
+video {
+  pointer-events: none;
+}
+
+video::-webkit-media-controls,
+video::-webkit-media-controls-enclosure,
+video::-webkit-media-controls-overlay-enclosure,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }

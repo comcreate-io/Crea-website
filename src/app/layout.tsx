@@ -75,6 +75,14 @@ export const metadata: Metadata = {
     images: [DEFAULT_OG_IMAGE],
   },
   formatDetection: { telephone: true, email: true, address: false },
+  // Query-string cache-bust so production does not keep a prior tab icon.
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=crea-20260822", type: "image/x-icon" },
+      { url: "/icon.png?v=crea-20260822", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon.png?v=crea-20260822", sizes: "180x180" }],
+  },
 };
 
 export const viewport: Viewport = {
