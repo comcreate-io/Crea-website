@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
+import { MutedAutoplayVideo } from "@/components/ui/muted-autoplay-video";
 
 export type LightboxMedia =
   | { type: "image"; src: string }
@@ -173,17 +174,11 @@ export function ProjectLightbox({
                 onClick={(e) => e.stopPropagation()}
               >
                 {current.type === "video" ? (
-                  <video
+                  <MutedAutoplayVideo
                     src={current.src}
                     poster={current.poster}
-                    className="max-h-full max-w-full rounded-lg shadow-2xl"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    disablePictureInPicture
-                    disableRemotePlayback
-                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                    fit="contain"
+                    className="rounded-lg"
                   />
                 ) : (
                   // eslint-disable-next-line @next/next/no-img-element

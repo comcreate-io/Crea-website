@@ -5,6 +5,7 @@ import Image from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { ProjectLightbox, type LightboxMedia } from "@/components/ui/project-lightbox";
+import { MutedAutoplayVideo } from "@/components/ui/muted-autoplay-video";
 
 type MediaItem = LightboxMedia;
 
@@ -152,19 +153,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         }}
       >
         {project.media[currentImageIndex].type === "video" ? (
-          <video
+          <MutedAutoplayVideo
             key={project.media[currentImageIndex].src}
             src={project.media[currentImageIndex].src}
             poster={project.media[currentImageIndex].poster}
-            className="absolute inset-0 w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
             preload="metadata"
-            disablePictureInPicture
-            disableRemotePlayback
-            controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
             aria-label={`${project.name} video`}
           />
         ) : (
