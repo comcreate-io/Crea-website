@@ -177,11 +177,13 @@ export function ProjectLightbox({
                     src={current.src}
                     poster={current.poster}
                     className="max-h-full max-w-full rounded-lg shadow-2xl"
-                    controls
                     autoPlay
                     muted
                     loop
                     playsInline
+                    disablePictureInPicture
+                    disableRemotePlayback
+                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
                   />
                 ) : (
                   // eslint-disable-next-line @next/next/no-img-element

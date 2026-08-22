@@ -143,6 +143,13 @@
     background-color: #8B7355;
     color: #FFFFFF;
   }
+
+  /* Hide native / iOS Safari play-pause chrome. Videos autoplay muted. */
+  video::-webkit-media-controls,
+  video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
+  }
 }
 
 /* ============================================

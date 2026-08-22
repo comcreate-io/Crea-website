@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 interface BackgroundVideoProps {
   src: string;
@@ -12,7 +12,6 @@ interface BackgroundVideoProps {
 export function BackgroundVideo({ src, mobileSrc, poster, className = "" }: BackgroundVideoProps) {
   const desktopRef = useRef<HTMLVideoElement>(null);
   const mobileRef = useRef<HTMLVideoElement>(null);
-  const [showPlayButton, setShowPlayButton] = useState(false);
 
   useEffect(() => {
     const playVideo = async (video: HTMLVideoElement | null) => {
@@ -23,15 +22,13 @@ export function BackgroundVideo({ src, mobileSrc, poster, className = "" }: Back
       video.defaultMuted = true;
       video.volume = 0;
 
-      // Try to play
       try {
         const playPromise = video.play();
         if (playPromise !== undefined) {
           await playPromise;
         }
       } catch {
-        // Autoplay blocked - show play button for user interaction
-        setShowPlayButton(true);
+        // Autoplay blocked — no play/pause overlay.
       }
     };
 
@@ -45,24 +42,6 @@ export function BackgroundVideo({ src, mobileSrc, poster, className = "" }: Back
 
     return () => clearTimeout(timer);
   }, [mobileSrc]);
-
-  const handlePlayClick = () => {
-    const playAll = async () => {
-      const videos = [desktopRef.current, mobileRef.current].filter(Boolean);
-      for (const video of videos) {
-        if (video) {
-          video.muted = true;
-          try {
-            await video.play();
-          } catch {
-            // Still blocked
-          }
-        }
-      }
-      setShowPlayButton(false);
-    };
-    playAll();
-  };
 
   const videoClassName = `absolute inset-0 w-full h-full object-cover ${className}`;
 
@@ -84,6 +63,9 @@ export function BackgroundVideo({ src, mobileSrc, poster, className = "" }: Back
             preload="metadata"
             poster={poster}
             src={desktopSrc}
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
           />
           <video
             ref={mobileRef}
@@ -95,6 +77,9 @@ export function BackgroundVideo({ src, mobileSrc, poster, className = "" }: Back
             preload="metadata"
             poster={poster}
             src={mobileSrcWithTime}
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
           />
         </>
       ) : (
@@ -108,26 +93,10 @@ export function BackgroundVideo({ src, mobileSrc, poster, className = "" }: Back
           preload="metadata"
           poster={poster}
           src={desktopSrc}
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
         />
-      )}
-
-      {/* Fallback play button for iOS when autoplay is blocked */}
-      {showPlayButton && (
-        <button
-          onClick={handlePlayClick}
-          className="absolute inset-0 z-10 flex items-center justify-center bg-black/30 cursor-pointer"
-          aria-label="Play video"
-        >
-          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-            <svg
-              className="w-8 h-8 text-white ml-1"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </button>
       )}
     </>
   );
