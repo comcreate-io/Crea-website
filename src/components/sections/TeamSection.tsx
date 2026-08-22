@@ -49,7 +49,7 @@ const teamMembers = [
   {
     name: "Design Tank Architecture",
     company: "Luxury Residential Design",
-    role: "Architect | Marion Estates",
+    role: "Architect | 5515 N Marion Way",
     description:
       "A leading luxury residential design firm known for modern homes with exceptional indoor-outdoor integration. Multiple Gold Award winners at the 2025 Iconic Design Awards along with other major regional and national honors. Deep experience across Scottsdale, Phoenix, and Paradise Valley; they understand what high-end buyers want.",
   },
